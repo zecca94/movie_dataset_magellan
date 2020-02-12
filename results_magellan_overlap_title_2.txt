@@ -1,0 +1,42 @@
+DECISION TREE PREDICTIONS
+Elapsed time: 0.001611471176147461 seconds
+Precision : 96.84% (1349/1393)
+Recall : 96.36% (1349/1400)
+F1 : 96.6%
+False positives : 44 (out of 1393 positive predictions)
+False negatives : 51 (out of 4207 negative predictions)
+RANDOM FOREST PREDICTIONS
+Elapsed time: 0.005180835723876953 seconds
+Precision : 98.34% (1359/1382)
+Recall : 97.07% (1359/1400)
+F1 : 97.7%
+False positives : 23 (out of 1382 positive predictions)
+False negatives : 41 (out of 4218 negative predictions)
+SVM PREDICTIONS
+Elapsed time: 0.22623944282531738 seconds
+Precision : 97.75% (1345/1376)
+Recall : 96.07% (1345/1400)
+F1 : 96.9%
+False positives : 31 (out of 1376 positive predictions)
+False negatives : 55 (out of 4224 negative predictions)
+NAIVE BAYES PREDICTIONS
+Elapsed time: 0.0018863677978515625 seconds
+Precision : 94.72% (1309/1382)
+Recall : 93.5% (1309/1400)
+F1 : 94.1%
+False positives : 73 (out of 1382 positive predictions)
+False negatives : 91 (out of 4218 negative predictions)
+LINEAR REGRESSION PREDICTIONS
+Elapsed time: 0.002959012985229492 seconds
+Precision : 98.8% (1317/1333)
+Recall : 94.07% (1317/1400)
+F1 : 96.38%
+False positives : 16 (out of 1333 positive predictions)
+False negatives : 83 (out of 4267 negative predictions)
+LOGISTIC REGRESSION PREDICTIONS
+Elapsed time: 0.0025093555450439453 seconds
+Precision : 97.32% (1346/1383)
+Recall : 96.14% (1346/1400)
+F1 : 96.73%
+False positives : 37 (out of 1383 positive predictions)
+False negatives : 54 (out of 4217 negative predictions)
