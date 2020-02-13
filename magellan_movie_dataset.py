@@ -6,8 +6,8 @@ import time
 
 # Load CSV input files
 path = 'dataset/overlap_title_2/'
-path_ds1 = 'dataset/dataset1.csv'
-path_ds2 = 'dataset/dataset2.csv'
+path_ds1 = path + 'ds1.csv'
+path_ds2 = path + 'ds2.csv'
 path_train = path + 'train.csv'
 path_valid = path + 'valid.csv'
 path_test = path + 'test.csv'
@@ -18,20 +18,23 @@ train = em.read_csv_metadata(path_train, key='id', ltable=ds1, rtable=ds2, fk_lt
 valid = em.read_csv_metadata(path_valid, key='id', ltable=ds1, rtable=ds2, fk_ltable='left_id', fk_rtable='right_id')
 test = em.read_csv_metadata(path_test, key='id', ltable=ds1, rtable=ds2, fk_ltable='left_id', fk_rtable='right_id')
 
-# Process the original datasets to drop attributes not useful for matching
-ds1 = ds1.rename(columns={'starring': 'actors'})
-ds2 = ds2.rename(columns={'actor name': 'actors'})
-ds1 = ds1.drop(columns=['editor', 'writer'])
-ds2 = ds2.drop(columns=['director name', 'genre', 'imdb_ksearch_id', 'url', 'year'])
-em.set_key(ds1, 'id')
-em.set_key(ds2, 'id')
+# Process the original datasets to make the attributes 'actors' of the same type ('str_gt_10w')
+ds1['actors'] = ds1['actors'].apply(lambda x: str(x) + ' ' + str(x))
 
 # Generate a set of features for matching
-# It considers attributes 'id' and 'type', and ignores 'actors'... possible improvement!
-feature_table = em.get_features_for_matching(ds1, ds2, validate_inferred_attr_types=False)
+match_t = em.get_tokenizers_for_matching()
+match_s = em.get_sim_funs_for_matching()
+atypes1 = em.get_attr_types(ds1)
+atypes2 = em.get_attr_types(ds2)
+match_c = em.get_attr_corres(ds1, ds2)
+match_c['corres'].remove(('id', 'id'))
+
+# feature_table = em.get_features_for_matching(ds1, ds2, validate_inferred_attr_types=False)
+feature_table = em.get_features(ds1, ds2, atypes1, atypes2, match_c, match_t, match_s)
 
 # Convert the training set into a set of feature vectors using the feature table
-feature_vectors = em.extract_feature_vecs(train, feature_table=feature_table, attrs_after='label', show_progress=False)
+feature_vectors = em.extract_feature_vecs(train, feature_table=feature_table, attrs_after='label', \
+                                          show_progress=False)
 feature_vectors = feature_vectors.fillna(0.0)
 
 # Create a set of ML matchers

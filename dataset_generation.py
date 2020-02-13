@@ -4,6 +4,7 @@ import py_entitymatching as em
 import pandas as pd
 
 # Load CSV input files
+path = 'dataset/overlap_title_2/'
 path_ds1 = 'dataset/dataset1.csv'
 path_ds2 = 'dataset/dataset2.csv'
 path_gt = 'dataset/gt.csv'
@@ -50,7 +51,7 @@ dataset = pd.concat([sample_matches, sample_no_matches])
 dataset = dataset.rename(columns={'_id': 'id', 'ltable_id': 'left_id', 'rtable_id': 'right_id', \
                                   'ltable_title': 'left_title', 'rtable_title': 'right_title', \
                                   'ltable_actors': 'left_actors', 'rtable_actors': 'right_actors'})
-dataset.to_csv('dataset/dataset.csv', index=False)
+dataset.to_csv(path + 'dataset.csv', index=False)
 print('Number of elements in the dataset: ' + str(len(dataset)))
 
 # Create training, validation and test sets (3:1:1)
@@ -79,6 +80,8 @@ print('Number of elements in the training set: ' + str(len(train)))
 print('Number of elements in the validation set: ' + str(len(valid)))
 print('Number of elements in the test set: ' + str(len(test)))
 
-train.to_csv('dataset/train.csv', index=False)
-valid.to_csv('dataset/valid.csv', index=False)
-test.to_csv('dataset/test.csv', index=False)
+ds1.to_csv(path + 'ds1.csv', index=False)
+ds2.to_csv(path + 'ds2.csv', index=False)
+train.to_csv(path + 'train.csv', index=False)
+valid.to_csv(path + 'valid.csv', index=False)
+test.to_csv(path + 'test.csv', index=False)
